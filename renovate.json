@@ -1,10 +1,14 @@
 {
-  "extends": ["config:best-practices"],
+  "extends": [
+    "config:best-practices"
+  ],
   "ignoreTests": true,
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^versions\\.env$"],
+      "managerFilePatterns": [
+        "/^versions\\.env$/"
+      ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\n.*?=(?<currentValue>.*)"
       ],
@@ -13,14 +17,21 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["custom.regex"],
+      "matchManagers": [
+        "custom.regex"
+      ],
       "extractVersion": "^(v|release-)?(?<version>.*)$",
       "automerge": true,
       "pinDigests": false,
-      "matchPackageNames": ["/.*/"]
+      "matchPackageNames": [
+        "/.*/"
+      ]
     },
     {
-      "matchManagers": ["github-actions", "dockerfile"],
+      "matchManagers": [
+        "github-actions",
+        "dockerfile"
+      ],
       "pinDigests": false
     }
   ]
