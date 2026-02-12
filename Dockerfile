@@ -15,5 +15,9 @@ RUN chmod +x /usr/local/bin/ttyd
 ADD https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_linux_amd64.apk /tmp/k9s_linux_amd64.apk
 RUN apk add --allow-untrusted /tmp/k9s_linux_amd64.apk
 
+# Add entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["ttyd", "-W", "k9s"]
+CMD ["ttyd", "-W", "-t", "fontSize=14", "-t", "disableLeaveAlert=true", "-t", "rendererType=webgl", "/usr/local/bin/entrypoint.sh"]
